@@ -18,7 +18,7 @@ resource "aws_s3vectors_vector_bucket" "kb" {
 }
 
 resource "aws_s3vectors_index" "kb" {
-  count = var.enabled ? 1 : 0
+  count = var.enabled && var.create_s3_bucket ? 1 : 0
 
   index_name         = local.index_name
   vector_bucket_name = local.vector_bucket_name
@@ -66,13 +66,14 @@ resource "aws_iam_policy" "bedrock_s3_access" {
         Sid = "ListAndReadBucket"
         Effect = "Allow"
         Action = [
-          "s3:GetObject",
-          "s3:ListBucket",
-          "s3:GetBucketLocation"
+          "s3vectors:GetVectors",
+           "s3vectors:PutVectors",
+           "s3vectors:DeleteVectors",
+            "s3vectors:QueryVectors"
         ]
-        Resource = [
-          local.s3_bucket_arn,
-          "${local.s3_bucket_arn}/*"
+        Resource = [ "*"
+          #local.s3_bucket_arn,
+          #"${local.s3_bucket_arn}/*"
         ]
       }
     ]
