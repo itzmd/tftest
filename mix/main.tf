@@ -143,6 +143,20 @@ module "bedrock_gateway" {
   }
 }
 
+# Bedrock Memory: Bedrock AgentCore memory instances backed by optional IAM roles and strategy definitions.
+module "bedrock_memory" {
+  count  = var.create_knowledge_base_memory ? 1 : 0
+  source = "./modules/bedrock-memory"
+
+  create_agentcore_memory = var.create_agentcore_memory
+  name_prefix                  = var.resource_prefix
+  tags                         = local.common_tags
+  memories = {
+    for cfg in var.bedrock_memory_configs : cfg.name => cfg
+    if try(cfg.enabled, true)
+  }
+}
+
 # Observability: CloudWatch dashboard + alarms over the runtime's EMF metrics
 # (namespace "EPDAR"): requests, latency, tokens, tool calls, guardrail blocks.
 module "observability" {
