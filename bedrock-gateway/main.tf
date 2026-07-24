@@ -6,7 +6,8 @@ locals {
       gateway_name            = null
       description             = null
       role_arn                = null
-      authorizer_type         = "AWS_IAM"
+      gateway_type            = "custom_jwt"
+      authorizer_type         = "CUSTOM_JWT"
       discovery_url           = null
       allowed_audience        = []
       allowed_clients         = []
@@ -58,12 +59,16 @@ resource "aws_bedrockagentcore_gateway" "this" {
   role_arn    = coalesce(try(each.value.role_arn, null), aws_iam_role.gateway[each.key].arn)
 
   authorizer_type = each.value.authorizer_type
-  authorizer_configuration {
-    custom_jwt_authorizer {
-      discovery_url    = each.value.discovery_url
-      allowed_audience = each.value.allowed_audience
-      allowed_clients  = each.value.allowed_clients
-      allowed_scopes   = each.value.allowed_scopes
+
+  dynamic "authorizer_configuration" {
+    for_each = each.value.authorizer_type == "CUSTOM_JWT" ? [1] : []
+    content {
+      custom_jwt_authorizer {
+        discovery_url    = each.value.discovery_url
+        allowed_audience = each.value.allowed_audience
+        allowed_clients  = each.value.allowed_clients
+        allowed_scopes   = each.value.allowed_scopes
+      }
     }
   }
 

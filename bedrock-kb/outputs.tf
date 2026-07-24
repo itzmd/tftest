@@ -55,15 +55,15 @@ output "bedrock_s3_role_arns" {
 
 output "knowledge_base_name" {
   description = "Name of the first Bedrock knowledge base for backwards compatibility."
-  value       = var.enabled && length(aws_bedrockagent_knowledge_base.this) > 0 ? values(aws_bedrockagent_knowledge_base.this)[0].name : null
+  value       = var.create_knowledge_base && length(aws_bedrockagent_knowledge_base.this) > 0 ? values(aws_bedrockagent_knowledge_base.this)[0].name : null
 }
 
 output "knowledge_base_arn" {
   description = "ARN of the first Bedrock knowledge base for backwards compatibility."
-  value       = var.enabled && length(aws_bedrockagent_knowledge_base.this) > 0 ? values(aws_bedrockagent_knowledge_base.this)[0].arn : null
+  value       = var.create_knowledge_base && length(aws_bedrockagent_knowledge_base.this) > 0 ? values(aws_bedrockagent_knowledge_base.this)[0].arn : null
 }
 
 output "bedrock_s3_role_arn" {
   description = "ARN of the first IAM role granted to Bedrock for S3 access for backwards compatibility."
-  value       = var.enabled && length(aws_iam_role.bedrock_s3_access) > 0 ? values(aws_iam_role.bedrock_s3_access)[0].arn : null
+  value       = var.create_knowledge_base && length(aws_iam_role.bedrock_s3_access) > 0 ? values(aws_iam_role.bedrock_s3_access)[0].arn : null
 }

@@ -1,3 +1,30 @@
+Error: Reference to undeclared input variable
+│ 
+│   on modules\bedrock-kb\outputs.tf line 58, in output "knowledge_base_name":
+│   58:   value       = var.enabled && length(aws_bedrockagent_knowledge_base.this) > 0 ? values(aws_bedrockagent_knowledge_base.this)[0].name : null
+│ 
+│ An input variable with the name "enabled" has not been declared. This variable can be declared with a variable "enabled" {}
+│ block.
+╵
+╷
+│ Error: Reference to undeclared input variable
+│ 
+│   on modules\bedrock-kb\outputs.tf line 63, in output "knowledge_base_arn":
+│   63:   value       = var.enabled && length(aws_bedrockagent_knowledge_base.this) > 0 ? values(aws_bedrockagent_knowledge_base.this)[0].arn : null
+│ 
+│ An input variable with the name "enabled" has not been declared. This variable can be declared with a variable "enabled" {}
+│ block.
+╵
+╷
+│ Error: Reference to undeclared input variable
+│ 
+│   on modules\bedrock-kb\outputs.tf line 68, in output "bedrock_s3_role_arn":
+│   68:   value       = var.enabled && length(aws_iam_role.bedrock_s3_access) > 0 ? values(aws_iam_role.bedrock_s3_access)[0].arn : null
+│ 
+│ An input variable with the name "enabled" has not been declared. This variable can be declared with a variable "enabled" {}
+│ block.
+╵
+
 output "vector_bucket_name" {
   description = "Name of the S3 Vectors bucket used by the knowledge base."
   value       = local.vector_bucket_name
