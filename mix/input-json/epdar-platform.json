@@ -1,3 +1,13 @@
+Initializing modules...
+- bedrock_memory in modules\bedrock-memory
+╷
+│ Error: Attribute redefined
+│ 
+│   on modules\bedrock-memory\main.tf line 67, in resource "aws_bedrockagentcore_memory_strategy" "this":
+│   67:   for_each = {
+│ 
+│ The argument "for_each" was already set at modules\bedrock-memory\main.tf:62,3-11. Each argument may be set only once.
+╵
 {
   "location": "us",
   "environment": "dev",
