@@ -27,6 +27,7 @@
   "agent_runtime_arn": "",
   "create_bedrock_kb": true,
   "create_knowledge_base_gateway": true,
+  "create_knowledge_base_memory": true,
   "bedrock_kb_configs": [
     {
       "name": "primary",
@@ -115,6 +116,31 @@
       "interception_points": [],
       "interceptor_lambda_arn": null,
       "pass_request_headers": false
+    }
+  ],
+  "bedrock_memory_configs": [
+    {
+      "name": "primary-memory",
+      "enabled": true,
+      "create_memory": true,
+      "memory_name": null,
+      "event_expiry_duration": 30,
+      "role_name": null,
+      "role_arn": null,
+      "strategies": [
+        {
+          "name": "semantic-strategy",
+          "type": "SEMANTIC",
+          "description": "Semantic memory strategy",
+          "namespaces": ["default"]
+        },
+        {
+          "name": "summary-strategy",
+          "type": "SUMMARIZATION",
+          "description": "Summarization memory strategy",
+          "namespaces": ["{sessionId}"]
+        }
+      ]
     }
   ]
 }
