@@ -90,6 +90,12 @@ variable "create_knowledge_base_gateway" {
   default     = false
 }
 
+variable "create_agentcore_memory" {
+  description = "Boolean value to determine if Bedrock memory resources need to be created or not"
+  type        = bool
+  default     = false
+}
+
 variable "bedrock_gateway_configs" {
   description = "List of Bedrock gateway configurations to create or manage."
   type = list(object({
@@ -117,11 +123,38 @@ variable "bedrock_gateway_configs" {
   default = []
 }
 
-variable "create_bedrock_guardrail" {
-  description = "Boolean value to determine if a Bedrock Guardrail need to be created or not"
-  type        = bool
-  default     = false
+variable "bedrock_memory_configs" {
+  description = "List of Bedrock memory configurations to create or manage."
+  type = list(object({
+    name                   = string
+    enabled                = optional(bool, true)
+    create_memory          = optional(bool, true)
+    memory_name            = optional(string, null)
+    event_expiry_duration = optional(number, 30)
+    role_name              = optional(string, null)
+    role_arn               = optional(string, null)
+    strategies             = optional(list(object({
+      name        = string
+      type        = string
+      description = optional(string, null)
+      namespaces  = optional(list(string), [])
+      configuration = optional(object({
+        type = string
+        consolidation = optional(object({
+          append_to_prompt = string
+          model_id         = string
+        }), null)
+        extraction = optional(object({
+          append_to_prompt = string
+          model_id         = string
+        }), null)
+      }), null)
+    })), [])
+  }))
+  default = []
 }
+
+variable "create_bedrock_guardrail" {
 
 variable "create_observability" {
   description = "Boolean value to determine if model-invocation logging, CloudWatch and cost guardrails need to be created or not"
