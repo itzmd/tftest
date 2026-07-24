@@ -1,13 +1,3 @@
-"create_bedrock_kb": true,
-  "bedrock_kb_create_s3_bucket": true,
-  "bedrock_kb_s3_bucket_name": null,
-  "bedrock_kb_index_name": null,
-  "bedrock_kb_data_type": "float32",
-  "bedrock_kb_dimension": 256,
-  "bedrock_kb_distance_metric": "euclidean",
-  "bedrock_kb_embedding_model_arn": "arn:aws:bedrock:us-west-2::foundation-model/amazon.titan-embed-text-v2:0",
-  "bedrock_kb_embedding_data_type": "FLOAT32"
-
 output "vector_bucket_name" {
   description = "Name of the S3 Vectors bucket used by the knowledge base."
   value       = local.vector_bucket_name
