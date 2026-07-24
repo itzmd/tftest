@@ -60,17 +60,17 @@ resource "aws_bedrockagentcore_memory" "this" {
 
 resource "aws_bedrockagentcore_memory_strategy" "this" {
   for_each = var.create_agentcore_memory ? {
-    for name, cfg in local.memory_configs : name => cfg
-    if try(cfg.enabled, true) && try(cfg.create_memory, true)
-  } : {}
-
-  for_each = {
     for entry in flatten([
       for name, cfg in local.memory_configs : [
-        for strategy in try(cfg.strategies, []) : merge(strategy, { memory_key = name })
+        for strategy in try(cfg.strategies, []) : merge(strategy, {
+          memory_key           = name
+          memory_enabled       = try(cfg.enabled, true)
+          memory_create_memory = try(cfg.create_memory, true)
+        })
       ]
     ]) : "${entry.memory_key}:${entry.name}" => entry
-  }
+    if try(entry.memory_enabled, true) && try(entry.memory_create_memory, true)
+  } : {}
 
   name        = each.value.name
   memory_id   = aws_bedrockagentcore_memory.this[each.value.memory_key].id
