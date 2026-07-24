@@ -167,3 +167,28 @@ output "bedrock_gateway_role_arns" {
   description = "ARNs of the IAM roles used by the Bedrock gateways"
   value       = var.create_knowledge_base_gateway ? module.bedrock_gateway[0].gateway_role_arns : {}
 }
+
+output "bedrock_memory_ids" {
+  description = "IDs of the Bedrock memory resources"
+  value       = var.create_agentcore_memory ? module.bedrock_memory[0].memory_ids : {}
+}
+
+output "bedrock_memory_arns" {
+  description = "ARNs of the Bedrock memory resources"
+  value       = var.create_agentcore_memory ? module.bedrock_memory[0].memory_arns : {}
+}
+
+output "bedrock_memory_names" {
+  description = "Names of the Bedrock memory resources"
+  value       = var.create_agentcore_memory ? module.bedrock_memory[0].memory_names : {}
+}
+
+output "bedrock_memory_role_arns" {
+  description = "ARNs of the IAM roles used by the Bedrock memories"
+  value       = var.create_agentcore_memory ? module.bedrock_memory[0].memory_role_arns : {}
+}
+
+output "bedrock_memory_strategy_ids" {
+  description = "IDs of the Bedrock memory strategies"
+  value       = var.create_agentcore_memory ? module.bedrock_memory[0].memory_strategy_ids : {}
+}
