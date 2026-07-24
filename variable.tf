@@ -1,10 +1,3 @@
-# =============================================================================
-# Module: bedrock-kb
-#
-# Provisions an Amazon Bedrock agent knowledge base backed by an S3 Vectors bucket
-# and index, with optional API Gateway wiring.
-# =============================================================================
-
 variable "enabled" {
   description = "Whether to create the Bedrock Knowledge Base, S3 Vectors bucket/index, and optional gateway."
   type        = bool
