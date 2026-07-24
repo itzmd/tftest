@@ -1,3 +1,12 @@
+ Error: Reference to undeclared input variable
+│ 
+│   on main.tf line 148, in module "bedrock_memory":
+│  148:   count  = var.create_knowledge_base_memory ? 1 : 0
+│ 
+│ An input variable with the name "create_knowledge_base_memory" has not been declared. This variable
+│ can be declared with a variable "create_knowledge_base_memory" {} block.
+╵
+
 Initializing modules...
 - bedrock_memory in modules\bedrock-memory
 ╷
